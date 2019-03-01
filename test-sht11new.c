@@ -166,11 +166,7 @@ PROCESS_THREAD(accel_process, ev, data)
   
         packetbuf_copyfrom("hej", 4);
         broadcast_send(&bc);
-
-
-        process_poll(&temp_process);
-        PROCESS_YIELD();
-    
+          
     //printf("Inside accel loop yield\n");
 
       }
@@ -181,7 +177,8 @@ PROCESS_THREAD(accel_process, ev, data)
       
       //z = accm_read_axis(Z_AXIS);
       
-
+      process_poll(&temp_process);
+      PROCESS_YIELD();
       etimer_set(&et, ACCM_READ_INTERVAL);
       PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
               //printf("Inside accel loop exit\n");
